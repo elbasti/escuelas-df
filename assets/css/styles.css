@@ -12,4 +12,6 @@ body {
 }
   
 
-
+div.select-filter{
+  display: inline-block;
+}

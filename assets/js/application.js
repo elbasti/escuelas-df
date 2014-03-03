@@ -90,6 +90,37 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
   var all_schools_math_summary = make_summary(math_categories);
   all_math_target.datum(all_schools_math_summary).call(all_math_bar); 
 
+  /* ******************  Filters *********************************/
+  // Make a filter for each dimension!
+  // (filter will be placed in a div called 'dimension-name-filter' 
+  // (replace `dimension-name, obvs)
+  
+  dimension_names.forEach(function(name){
+      var selector_name = "#"+name.toLowerCase().replace(/\s/g, "-")+"-filter";
+      var filter_div = d3.select(selector_name);
+      var all_of_dimension = dimensions[name].group().all()
+                               .sort(function (a, b) {
+                                 return a.key === b.key ? 0 : a.key < b.key ? -1 : 1
+                                 })
+                               .map(function(a){return a.key;});
+
+                              
+          filter_div.append('select')
+                    .attr('class', 'chosen-select')
+                    .attr('name', name)
+                    .selectAll('option')
+                    .data(all_of_dimension)
+                    .enter()
+                    .append('option')
+                    .attr('value', function(d){return d})
+                    .text(function(d){return d});
+      });
+
+      // Add blank option to all selects
+  d3.selectAll('select').insert('option', ":first-child")
+                        .attr('value',null)
+
+
   /* ********************* Helper Functions ***************/
 
   function make_summary(categories){
