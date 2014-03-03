@@ -11,5 +11,8 @@ body {
  fill: red; 
 }
   
-
+#datatable{
+  height: 400px;
+  overflow-y: scroll;
+}
 
