@@ -116,19 +116,28 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
                     .text(function(d){return d});
       });
 
-      // Add blank option to all selects
+  // Add blank option to all selects
   d3.selectAll('select').insert('option', ":first-child")
                         .attr('value',null)
-
+  
+  // Bind change function to each filter
+  // TODO without JQuery
+  var all_filter_selects = $('select').each(
+      function(){
+        $(this).change(function(){
+          on_filter_change(this)
+        })
+      }
+    )
 
   /* ********************* Helper Functions ***************/
 
   function make_summary(categories){
-  // **Warning!**
-  // Returns an array same length as `categories` where each item 
-  // is the sum of all members of `schools` of each category
-  //`schools` is a crossfilter, so calling this function will return different
-  //values depending on the state of the crossfilter.
+    // **Warning!**
+    // Returns an array same length as `categories` where each item 
+    // is the sum of all members of `schools` of each category
+    //`schools` is a crossfilter, so calling this function will return different
+    //values depending on the state of the crossfilter.
     var summary = [];
     for (var i=0; i<categories.length; i++) {
       summary[i] = schools.groupAll().reduceSum(function(d){
@@ -193,7 +202,6 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
                           return school_key(d)===identifier;
                         });
 
-
     //Let's re-draw the individual math plot
     one_school_math_target.datum(make_school_summary(math_categories,school))
                           .call(one_school_math); 
@@ -201,6 +209,13 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
     //Lets' re-draw the individual comm plot
     one_school_com_target.datum(make_school_summary(com_categories,school))
                          .call(one_school_com);
+  }
+
+  function on_filter_change(select){
+    //Call this function on change of a filter
+    // Do this if what was selected was the blank option
+    
+    // Do this if what was selected was a real option
   }
 
   var div = d3.select("body").append("div")   
