@@ -2,7 +2,8 @@ var scatter_target          = d3.select("#scatterplot");
 var schools_table_target    = d3.select("#datatable");
 var all_math_target         = d3.select("#bar-all-math");
 //var filtered_schools      = d3.select("#bar-filtered-schools");
-//var one_school_chart      = d3.select("#bar-one-school");
+var one_school_math_target  = d3.select("#one-school-math");
+var one_school_com_target   = d3.select("#one-school-com");
 
 d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
   //Clean up data first
@@ -23,6 +24,10 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
                          'Matemáticas: Elemental', 
                          'Matemáticas: Insuficiente'];
 
+  var com_categories = ['Comunicación: Excelente',
+                        'Comunicación: Bueno',
+                        'Comunicación: Elemental',
+                        'Comunicación: Insuficiente'];
   // ******************** Dimensions ********************************/
   // DRY Dimensions
   var dimension_names = ['Nombre De La Escuela', 
@@ -82,7 +87,7 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
   /* ** Side by side bar charts ****/
   // TODO Make sure this function is called in an init function that is called
   // before any filters are applied to `schools`
-  all_schools_math_summary = make_summary(math_categories);
+  var all_schools_math_summary = make_summary(math_categories);
   all_math_target.datum(all_schools_math_summary).call(all_math_bar); 
 
   /* ********************* Helper Functions ***************/
@@ -100,6 +105,14 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
       }).value()
     }
     return summary;
+  }
+
+  function make_school_summary(categories,school){
+    var summary = [];
+    for (var i=0; i<categories.length; i++){
+      summary[i] = school[categories[i]];
+    }
+    return summary
   }
 
   function school_key(d){
@@ -128,23 +141,35 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
 
   function scatter_click_func(d){
     //this is the function the scatterplot will call when a point is clicked
-    var identifier = school_key(d);
-    on_school_select(identifier);
-
+    on_school_select(d);
   }
 
-  function on_school_select(identifier){
+  function on_school_select(school){
     //call this function with an identifier. This function will then redraw
     //those charts that have one-school behavior
     //returns the school object
 
+    var identifier = school_key(school);
     //Let's add the .clicked class to the selected element in the scatterplot
     scatter_target.selectAll('.data_elem')
                   .classed('clicked', function(d){
                     return school_key(d)===identifier;
                     });
 
+    //Let's add class .success to the row belonging to the selected element
+    schools_table_target.selectAll('.data_elem')
+                        .classed('success', function(d){
+                          return school_key(d)===identifier;
+                        });
+
+
     //Let's re-draw the individual math plot
+    one_school_math_target.datum(make_school_summary(math_categories,school))
+                          .call(one_school_math); 
+
+    //Lets' re-draw the individual comm plot
+    one_school_com_target.datum(make_school_summary(com_categories,school))
+                         .call(one_school_com);
   }
 
   var div = d3.select("body").append("div")   

@@ -15,7 +15,7 @@ d3.sv_table = function(){
 
         rows.enter()
             .append('tr')
-            
+            .classed('data_elem', true) 
             .selectAll('td')
             .data(function(d){
               var outs = [];
