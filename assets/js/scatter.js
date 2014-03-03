@@ -97,15 +97,11 @@ d3.sv_scatter = function(){
             circles.enter()
                .append('circle')
                .attr('r', 2)
-               .classed('active', true)
-               .classed('inactive', false)
                .style('opacity', .6)
                .text(keyfunc)
                .on("mouseover", mouseover_func)
                .on("mouseout", mouseout_func)
                .on("click", click_func);
-
-
 
 //          // Exit      
             circles.exit()
@@ -117,6 +113,7 @@ d3.sv_scatter = function(){
 
             // Update
             circles.attr("class", "active")
+                   .classed('data_elem', true)
                    .transition()
                    .duration(1000)
                    .style("opacity", .8)

@@ -7,4 +7,9 @@ body {
   text-align: center;
 }
 
+#scatterplot .data_elem.clicked{
+ fill: red; 
+}
+  
+
 
