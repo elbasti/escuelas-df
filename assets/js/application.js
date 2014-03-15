@@ -57,8 +57,8 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
              })
          .x_domain([0, 120])
          .y_domain([0, 120])
-         //.mouseover_func(scatter_mouseover_func)
-         //.mouseout_func(scatter_mouseout_func)
+         .mouseover_func(scatter_mouseover_func)
+         .mouseout_func(scatter_mouseout_func)
          .click_func(scatter_click_func);
   
   var data_table = d3.sv_table()
@@ -119,25 +119,23 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
     // This function returns a key for the school data.
     return d["Nombre De La Escuela"];
   }
-//  function scatter_mouseover_func(d){
-//    div.transition()
-//      .duration(200)
-//      .style("opacity",.9);
-//    div.style("left", (d3.event.pageX) + "px")
-//      .style("top", (d3.event.pageY - 28) + "px");
-//    div.append("ul")
-//      .append("li").text(d['NOMBRE DE LA ESCUELA'])
-//      .append("li").text(d['COM EXCEL'])
-//      .append("li").text(d['MAT EXCEL'])
-//      .append("li").text(Number(d.mat_buen)+Number(d.mat_excel));
-//  }
-//
-//  function scatter_mouseout_func(d) {
-//    div.transition()
-//      .duration(500)
-//      .style("opacity", 0);
-//    div.select("ul").remove();
-//  }
+  function scatter_mouseover_func(d){
+    div.transition()
+      .duration(200)
+      .style("opacity",.9);
+    div.style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY - 28) + "px");
+    div.append("ul")
+      .append("li").text(d['Nombre De La Escuela'])
+      .append("li").text(Number(d.mat_buen)+Number(d.mat_excel));
+  }
+
+  function scatter_mouseout_func(d) {
+    div.transition()
+      .duration(500)
+      .style("opacity", 0);
+    div.select("ul").remove();
+  }
 
   function scatter_click_func(d){
     //this is the function the scatterplot will call when a point is clicked
