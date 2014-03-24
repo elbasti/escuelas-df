@@ -10,7 +10,10 @@ body {
 #scatterplot .data_elem.clicked{
  fill: red; 
 }
-  
+    
+#scatterplot .inactive{
+    opacity: .3 !important;
+}
 
 div.select-filter{
   display: inline-block;
