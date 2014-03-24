@@ -109,7 +109,6 @@ d3.sv_scatter = function(){
                    .classed('active', false)
                    .transition()
                    .duration(1000)
-             //      .style("opacity", .3)
 
             // Update
             circles.attr("class", "active")

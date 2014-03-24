@@ -10,9 +10,16 @@ body {
 #scatterplot .data_elem.clicked{
  fill: red; 
 }
+
+#scatterplot .inactive{
+    opacity: .3 !important;
+}
   
 #datatable{
   height: 400px;
   overflow-y: scroll;
 }
-
+    
+div.select-filter{
+  display: inline-block;
+}
