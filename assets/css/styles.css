@@ -23,3 +23,7 @@ body {
 div.select-filter{
   display: inline-block;
 }
+
+.tooltip{
+    margin-left:15px;
+  }

@@ -211,6 +211,7 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
 
   var div = d3.select("body").append("div")   
     .attr("class", "tooltip")               
+    .attr("id", "tooltip")
     .style("opacity", 0);
 
     function on_filter_change(obj){
@@ -226,9 +227,5 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
         scatter_target.datum(dimensions[obj.name].top(Infinity))
             .call(scatter_chart)
     }
-
-    var div = d3.select("body").append("div")   
-        .attr("class", "tooltip")               
-        .style("opacity", 0);
 
 }) //End d.csv 
