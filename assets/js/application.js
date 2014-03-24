@@ -227,5 +227,9 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
         scatter_target.datum(dimensions[obj.name].top(Infinity))
             .call(scatter_chart)
     }
+    
+    // Make the table searchable
+    $('#schools-table').searchable();
 
 }) //End d.csv 
+
