@@ -9,7 +9,8 @@ d3.sv_scatter = function(){
         mouseout_func = function(d,i) {},
         click_func = function(d,i) {},
         x_domain = [0,100],
-        y_domain = [0,100];
+        y_domain = [0,100],
+        radius = 2;
     //TODO: a better default keyfunction! 
     
 
@@ -96,7 +97,7 @@ d3.sv_scatter = function(){
             // Enter
             circles.enter()
                .append('circle')
-               .attr('r', 2)
+               .attr('r', radius)
                .style('opacity', .6)
                .text(keyfunc)
                .on("mouseover", mouseover_func)
@@ -173,5 +174,10 @@ d3.sv_scatter = function(){
         return scatter;
     }
 
+    scatter.radius = function(value){
+        if(!arguments.length) return radius;
+        radius = value;
+        return scatter;
+    }
 return scatter;
 }

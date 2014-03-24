@@ -57,6 +57,7 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
         .y_domain([0, 120])
         .mouseover_func(scatter_mouseover_func)
         .mouseout_func(scatter_mouseout_func)
+        .radius(4)
         .click_func(scatter_click_func);
 
     var data_table = d3.sv_table()
@@ -176,6 +177,7 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
 
   function scatter_click_func(d){
     //this is the function the scatterplot will call when a point is clicked
+      console.log(d)
     on_school_select(d);
   }
 
@@ -188,7 +190,6 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
     //Let's add the .clicked class to the selected element in the scatterplot
     scatter_target.selectAll('.data_elem')
                   .classed('clicked', function(d){
-                    debugger;
                     return school_key(d)===identifier;
                     });
 
