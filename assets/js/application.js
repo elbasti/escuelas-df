@@ -155,7 +155,7 @@ d3.csv("/datos/09_ESCUELAS_EMS2013.csv", function(data){
 
   function school_key(d){
     // This function returns a key for the school data.
-    return d["Nombre De La Escuela"];
+    return (d["Nombre De La Escuela"]+d["Turno"]);
   }
   function scatter_mouseover_func(d){
     div.transition()

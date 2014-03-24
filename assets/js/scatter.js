@@ -90,7 +90,7 @@ d3.sv_scatter = function(){
                  .attr("stroke-width", "2")
     // Enter
         var circles = group.selectAll("circle, .active")
-                           .data(function(d) {return d}, function(d) {return d["Nombre De La Escuela"]});
+                           .data(function(d) {return d}, keyfunc);
 
         
 //
